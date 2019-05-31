@@ -6,71 +6,77 @@
 using namespace std;
 #define SIZE 5
 
+struct Node {
+    int data;
+    struct Node *next;
+
+};
+
+
+
 class MyStack {
 
     private:
-        int num[SIZE];
-        int top;
-
+       struct Node* top = NULL;
     public:
         MyStack();
-        int push(int);
-        int pop();
+        void push(int);
+        void pop();
         bool isEmpty();
         bool isFull();
         void displayItems();
 }; 
 
 MyStack::MyStack() {
-    top = -1;
+    
 }
 
 bool MyStack::isEmpty() {
-    if(top==-1)
+    if(top==NULL)
         return true;
     return false;
 }
 
-bool MyStack::isFull() {
-    if(top == (SIZE - 1))
-        return true;
-    return false;
+void MyStack::push(int n) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = n;
+    newNode->next = top;
+    top = newNode;
 }
 
-int MyStack::push(int n) {
-    if(isFull()) {
-        return 0;
-    }
-    ++top;
-    num[top] = n;
-    return n;
-}
+void MyStack::pop() {
 
-int MyStack::pop() {
-    int temp;
-    if(isEmpty()) {
-        return 0;
-    }
-    // this doesn't actually delete the item though. just changes what the "top" is...
-    temp = num[top];
-    --top;
-    return temp;
+    if(top == NULL)
+        return;
+    
+    top = top->next;
 }
 
 void MyStack::displayItems() {
-    int i; //for loop
-    cout<<"STACK is: ";
-    for(i=(top); i>=0; i--)
-        cout<<num[i]<<" ";
-    cout<<endl;
+    struct Node* ptr;
+    if(top == NULL) {
+        return;
+    }
+    ptr = top;
+    while(ptr != NULL) {
+        cout << ptr -> data << " ";
+        ptr = ptr->next;
+    }
 }
 
 
 int main(){
     //declare object
     MyStack stk;
-    int choice, n,temp;
-     
+    stk.push(12);
+    stk.push(13);
+    stk.push(14);
+    stk.push(15);
+    stk.pop();
+    stk.pop();
+    
+    stk.displayItems();
+
     return 0;
      
 }
