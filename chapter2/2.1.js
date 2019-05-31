@@ -1,5 +1,9 @@
 // write a function to remove duplicates from an unsorted linked list
 
+/** Good Questions to ask in an interview */
+// Do I know the final size of the linked list?
+// Does the order the linked list matter as a result? Can I purge the parent duplicate, or the child?
+
 let store = [];
 
 function node(inputData) {
@@ -52,6 +56,7 @@ let firstNode = new node(12);
 firstNode.appendToTail(10);
 firstNode.appendToTail(13);
 firstNode.appendToTail(12);
+firstNode.appendToTail(13);
 
 purgeDuplicates(store, firstNode);
 
