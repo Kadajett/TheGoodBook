@@ -2,6 +2,11 @@
 // Stacks are LiFo 
 // has the following operations: pop, push, peek, isEmpty
 
+/*
+    For an array to hole 3 stacks, you need some sort of delimiter. In my case, I choose -1 and only allow positive numbers in the stack. 
+    YOu could also accomplish this by keeping a reference to the last node in each stack and only appendNext to them.
+*/
+
 #include <iostream>
 using namespace std;
 #define SIZE 5
@@ -24,7 +29,7 @@ class MyStack {
         void pop();
         bool isEmpty();
         bool isFull();
-        void displayItems();
+        void displayItems(int);
 }; 
 
 MyStack::MyStack() {
@@ -52,14 +57,24 @@ void MyStack::pop() {
     top = top->next;
 }
 
-void MyStack::displayItems() {
+void MyStack::displayItems(int section) {
+    int counter = 0;
+
     struct Node* ptr;
     if(top == NULL) {
         return;
     }
     ptr = top;
     while(ptr != NULL) {
-        cout << ptr -> data << " ";
+        if(ptr->data == -1) {
+            ++counter;
+        }
+        if(counter == section) {
+            cout << ptr -> data << " ";
+        } else if(counter > section) {
+            return;
+        }
+        
         ptr = ptr->next;
     }
 }
@@ -71,11 +86,20 @@ int main(){
     stk.push(12);
     stk.push(13);
     stk.push(14);
-    stk.push(15);
-    stk.pop();
-    stk.pop();
+    stk.push(43);
+    stk.push(-1);
+    stk.push(12);
+    stk.push(13);
+    stk.push(14);
+    stk.push(25);
+    stk.push(-1);
+    stk.push(12);
+    stk.push(13);
+    stk.push(14);
+    stk.push(92);
+
     
-    stk.displayItems();
+    stk.displayItems(0);
 
     return 0;
      
